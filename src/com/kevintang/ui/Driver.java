@@ -1,5 +1,8 @@
 package com.kevintang.ui;
 
+import com.kevintang.Main;
+import com.kevintang.ui.displayStrategies.DisplayStrategy;
+
 public class Driver {
 
     private static Driver instance;
@@ -11,26 +14,24 @@ public class Driver {
 
     private Driver() { }
 
-    public void run(DisplayStrategy boardStrategy, DisplayStrategy HUDStrategy, DisplayStrategy MenuStrategy) {
+    public void run(DisplayStrategy boardStrategy, DisplayStrategy HUDStrategy) {
 
         Display display;
+        Settings settings = Settings.getInstance();
+        Main.clearConsole();
 
         // Display Game Board
-        display = new Display(20,20);
-        if (boardStrategy == null) display.show(new PlaceholderStrategy());
-        else display.show(boardStrategy);
-        System.out.println(display.toString() + '\n');
+        if (boardStrategy != null) {
+            display = new Display(settings.getScreenHeight(), settings.getScreenWidth());
+            display.show(boardStrategy);
+            System.out.println(display.toString() + '\n');
+        }
 
         // Display HUD
-        display = new Display(20,3);
-        if (boardStrategy == null) display.show(new PlaceholderStrategy());
-        else display.show(HUDStrategy);
-        System.out.println(display.toString() + '\n');
-
-        // Display Menu
-        display = new Display(20,3);
-        if (boardStrategy == null) display.show(new PlaceholderStrategy());
-        else display.show(MenuStrategy);
-        System.out.println(display.toString() + '\n');
+        if (HUDStrategy != null) {
+            display = new Display(settings.getHUDHeight(), settings.getHUDWidth());
+            display.show(HUDStrategy);
+            System.out.println(display.toString() + '\n');
+        }
     }
 }

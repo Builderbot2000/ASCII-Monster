@@ -1,6 +1,7 @@
 package com.kevintang.ui;
 
 public class Pixel {
+
     char symbol;
     int y;
     int x;

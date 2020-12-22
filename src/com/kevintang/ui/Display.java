@@ -1,22 +1,17 @@
 package com.kevintang.ui;
 
+import com.kevintang.ui.displayStrategies.DisplayStrategy;
+
 public class Display {
 
     Pixel[][] screen;
     int width;
     int height;
 
-    public Display(int width, int height) {
+    public Display(int height, int width) {
         this.screen = new Pixel[height][width];
-        this.width = width;
         this.height = height;
-
-        // Fill map with blank
-        for (int y=0; y<height; y++) {
-            for (int x=0; x<width; x++) {
-                screen[y][x] = new Pixel('.',y,x);
-            }
-        }
+        this.width = width;
     }
 
     public void show(DisplayStrategy strategy) {

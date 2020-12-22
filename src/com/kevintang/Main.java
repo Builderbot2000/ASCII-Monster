@@ -1,21 +1,33 @@
 package com.kevintang;
 
 import com.kevintang.ui.Driver;
+import com.kevintang.ui.menus.MainMenu;
+import com.kevintang.ui.menus.Menu;
 
 import java.util.Scanner;
 
 public class Main {
 
+    private static Scanner scanner;
+    private static Menu menu;
+
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
 
-        while (true) {
-            Driver.getInstance().run(null, null, null);
-            String in = scanner.nextLine();
-            if (in.equals("Q")) break;
-        }
+        clearConsole();
+        Driver.getInstance().run(null, null);
+        menu = new MainMenu();
+        menu.run();
 
         scanner.close();
+    }
+
+    public static Scanner getScanner() {
+        return scanner;
+    }
+
+    public static void clearConsole() {
+
     }
 }
