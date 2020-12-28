@@ -4,9 +4,9 @@ import com.kevintang.ui.displayStrategies.DisplayStrategy;
 
 public class Display {
 
-    Pixel[][] screen;
-    int width;
-    int height;
+    private Pixel[][] screen;
+    private int width;
+    private int height;
 
     public Display(int height, int width) {
         this.screen = new Pixel[height][width];
@@ -15,7 +15,7 @@ public class Display {
     }
 
     public void show(DisplayStrategy strategy) {
-        if (strategy != null) screen = strategy.run(screen);
+        if (strategy != null) screen = strategy.generateDisplayStrategy(screen);
     }
 
     @Override

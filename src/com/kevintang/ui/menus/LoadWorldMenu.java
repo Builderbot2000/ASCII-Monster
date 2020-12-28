@@ -1,14 +1,17 @@
 package com.kevintang.ui.menus;
 
-public class LoadWorldMenu extends Menu{
+public class LoadWorldMenu extends Menu {
 
     public LoadWorldMenu() {
         super("Load World", "load a world from saved worlds:");
-        options.add("[B/b] Back to main menu");
+        options.add("[b] Back to main menu");
     }
 
     @Override
-    public void listen(String in) {
+    public boolean routine() { return false; }
+
+    @Override
+    public void onSelectListener(String in) {
 
     }
 }

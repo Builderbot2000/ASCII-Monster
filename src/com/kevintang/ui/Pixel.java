@@ -2,9 +2,9 @@ package com.kevintang.ui;
 
 public class Pixel {
 
-    char symbol;
-    int y;
-    int x;
+    private char symbol;
+    private int y;
+    private int x;
 
     public Pixel(char symbol, int y, int x) {
         this.symbol = symbol;

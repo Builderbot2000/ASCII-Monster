@@ -1,15 +1,20 @@
-package com.kevintang.model;
+package com.kevintang.model.world;
 
 public class Map {
 
-    Tile[][] board;
-    int height;
-    int width;
+    private Tile[][] board;
+    private int height;
+    private int width;
 
-    public Map(Tile[][] board, int height, int width) {
-        this.board = board;
+    public Map(int height, int width) {
         this.height = height;
         this.width = width;
+        this.board = new Tile[height][width];
+        for (int y=0; y<height; y++) {
+            for (int x=0; x<width; x++) {
+                this.board[y][x] = new Tile(' ', y, x);
+            }
+        }
     }
 
     public Tile[][] getBoard() {

@@ -32,15 +32,18 @@ public abstract class Menu {
         while (true) {
             Main.clearConsole();
             System.out.println(this.toString());
+            if (routine()) break;
             Scanner scanner = Main.getScanner();
-            System.out.println("Enter Command:");
+            System.out.println("Enter:");
             String in = scanner.nextLine();
             if (in.equals("B") || in.equals("b")) break;
-            else listen(in);
+            else onSelectListener(in);
         }
     }
 
-    public abstract void listen(String in);
+    public abstract boolean routine();
+
+    public abstract void onSelectListener(String in);
 
     public String getTitle() {
         return title;

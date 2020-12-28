@@ -9,12 +9,10 @@ public class Settings {
         return instance;
     }
 
-    int screenHeight;
-    int screenWidth;
-    int HUDHeight;
-    int HUDWidth;
-    int menuHeight;
-    int menuWidth;
+    private int screenHeight;
+    private int screenWidth;
+    private int HUDHeight;
+    private int HUDWidth;
 
     public Settings() {
         // Inject default settings
@@ -22,8 +20,6 @@ public class Settings {
         screenWidth = 20;
         HUDHeight = 3;
         HUDWidth = 20;
-        menuHeight = 3;
-        menuWidth = 20;
     }
 
     public static void setInstance(Settings instance) {
@@ -60,21 +56,5 @@ public class Settings {
 
     public void setHUDWidth(int HUDWidth) {
         this.HUDWidth = HUDWidth;
-    }
-
-    public int getMenuHeight() {
-        return menuHeight;
-    }
-
-    public void setMenuHeight(int menuHeight) {
-        this.menuHeight = menuHeight;
-    }
-
-    public int getMenuWidth() {
-        return menuWidth;
-    }
-
-    public void setMenuWidth(int menuWidth) {
-        this.menuWidth = menuWidth;
     }
 }
