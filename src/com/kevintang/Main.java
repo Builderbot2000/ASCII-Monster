@@ -11,6 +11,9 @@ import java.util.Scanner;
 public class Main {
 
     private static Scanner scanner;
+    private static final String savesFilePath =
+            System.getProperty("user.dir").replaceAll("\\\\", "/") + "/saves";
+
 
     public static void main(String[] args) {
 
@@ -27,6 +30,8 @@ public class Main {
     public static Scanner getScanner() {
         return scanner;
     }
+
+    public static String getSavesFilePath() { return savesFilePath; }
 
     public static void clearConsole() { }
 }

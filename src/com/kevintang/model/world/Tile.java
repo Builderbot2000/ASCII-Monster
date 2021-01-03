@@ -2,9 +2,10 @@ package com.kevintang.model.world;
 
 import com.kevintang.model.entities.Entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tile {
+public class Tile implements Serializable {
 
     private char symbol;
     private int y;

@@ -1,6 +1,8 @@
 package com.kevintang.model.world;
 
-public class Map {
+import java.io.Serializable;
+
+public class Map implements Serializable {
 
     private Tile[][] board;
     private int height;

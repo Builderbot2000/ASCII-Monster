@@ -39,7 +39,7 @@ public class CreateWorldMenu extends Menu {
     }
 
     private Player createPlayer(Scanner scanner, World world) {
-        System.out.println("Please enter name of your character.");
+        System.out.println("\nPlease enter name of your character.");
         String name = scanner.nextLine();
         int xLimit = world.getMap().getWidth();
         int yLimit = world.getMap().getHeight();

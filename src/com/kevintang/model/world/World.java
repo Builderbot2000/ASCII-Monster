@@ -6,7 +6,9 @@ import com.kevintang.model.entities.Player;
 import com.kevintang.ui.displayStrategies.DisplayStrategy;
 import com.kevintang.ui.Pixel;
 
-public class World implements DisplayStrategy {
+import java.io.Serializable;
+
+public class World implements DisplayStrategy, Serializable {
 
     private String name;
     private Map map;
@@ -27,19 +29,17 @@ public class World implements DisplayStrategy {
     }
 
     /**
-     * Transcribe a view of map from player position onto screen
+     * Transcribe a viewport of map from player position onto screen
      * */
     @Override
     public Pixel[][] generateDisplayStrategy(Pixel[][] screen) {
-        if (player == null) throw new IllegalStateException("No player in world!");
-        int mapHeight = map.getBoard().length;
-        int mapWidth = map.getBoard()[0].length;
+        if (player == null) throw new IllegalStateException("No player in world, cannot define viewport!");
         int screenHeight = screen.length;
         int screenWidth = screen[0].length;
         int playerX = player.getX();
         int playerY = player.getY();
-        int midX = mapWidth / 2;
-        int midY = mapHeight / 2;
+        int midX = screenWidth / 2;
+        int midY = screenHeight / 2;
         for (int y=0; y<screenHeight; y++) {
             for (int x=0; x<screenWidth; x++) {
                 char symbol;

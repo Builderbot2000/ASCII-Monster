@@ -16,10 +16,10 @@ public class Settings {
 
     public Settings() {
         // Inject default settings
-        screenHeight = 20;
-        screenWidth = 20;
+        screenHeight = 21;
+        screenWidth = 21;
         HUDHeight = 3;
-        HUDWidth = 20;
+        HUDWidth = 21;
     }
 
     public static void setInstance(Settings instance) {

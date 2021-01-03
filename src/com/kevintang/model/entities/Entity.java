@@ -1,6 +1,8 @@
 package com.kevintang.model.entities;
 
-public abstract class Entity {
+import java.io.Serializable;
+
+public abstract class Entity implements Serializable {
 
     private final char symbol;
     private String name;
