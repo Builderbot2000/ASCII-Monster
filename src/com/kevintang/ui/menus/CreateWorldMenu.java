@@ -20,7 +20,7 @@ public class CreateWorldMenu extends Menu {
         Scanner scanner = Main.getScanner();
         Game.getInstance().setWorld(createWorld(scanner));
         World world = Game.getInstance().getWorld();
-        Game.getInstance().getWorld().setPlayer(createPlayer(scanner, world));
+        createPlayer(scanner, world);
         return true;
     }
 
@@ -38,7 +38,7 @@ public class CreateWorldMenu extends Menu {
         return world;
     }
 
-    private Player createPlayer(Scanner scanner, World world) {
+    private void createPlayer(Scanner scanner, World world) {
         System.out.println("\nPlease enter name of your character.");
         String name = scanner.nextLine();
         int xLimit = world.getMap().getWidth();
@@ -48,8 +48,7 @@ public class CreateWorldMenu extends Menu {
         int y = random.nextInt(yLimit);
 
         Player player = new Player(name, x, y);
-        world.getMap().getBoard()[y][x].getEntities().add(player);
-        return player;
+        world.spawnEntity(player);
     }
 
     @Override

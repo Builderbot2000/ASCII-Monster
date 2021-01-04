@@ -1,11 +1,15 @@
 package com.kevintang.ui.menus;
 
-import com.kevintang.Main;
 import com.kevintang.model.Game;
+import com.kevintang.model.entities.Player;
+import com.kevintang.model.world.Direction;
 
-import java.io.File;
+import java.util.Locale;
 
 public class GameMenu extends Menu {
+
+    Game game = Game.getInstance();
+    Player player = Game.getInstance().getWorld().getPlayer();
 
     public GameMenu() {
         super("World: " + Game.getInstance().getWorld().getName(), "Choose your action.");
@@ -25,25 +29,14 @@ public class GameMenu extends Menu {
 
     @Override
     public void onSelectListener(String in) {
-        switch (in) {
-            case "n" -> {
-                System.out.println("Go North!");
-            }
-            case "s" -> {
-                System.out.println("Go South!");
-            }
-            case "w" -> {
-                System.out.println("Go West!");
-            }
-            case "e" -> {
-                System.out.println("Go East!");
-            }
-            case "i" -> {
-                System.out.println("Interact!");
-            }
-            case "r" -> {
-                Game.getInstance().saveWorld();
-            }
+        String input = in.toLowerCase();
+        switch (input) {
+            case "n" -> game.getWorld().moveEntity(player, Direction.NORTH, 1);
+            case "s" -> game.getWorld().moveEntity(player, Direction.SOUTH, 1);
+            case "w" -> game.getWorld().moveEntity(player, Direction.WEST, 1);
+            case "e" -> game.getWorld().moveEntity(player, Direction.EAST, 1);
+            case "i" -> System.out.println("Interact!");
+            case "r" -> Game.getInstance().saveWorld();
         }
     }
 }

@@ -16,6 +16,10 @@ public abstract class Entity implements Serializable {
         this.y = y;
     }
 
+    public abstract void encounter(Entity entity);
+
+    public abstract void interaction(Entity entity);
+
     public char getSymbol() {
         return symbol;
     }

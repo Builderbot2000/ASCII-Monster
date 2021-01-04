@@ -17,7 +17,7 @@ public class Settings {
     public Settings() {
         // Inject default settings
         screenHeight = 21;
-        screenWidth = 21;
+        screenWidth = 33;
         HUDHeight = 3;
         HUDWidth = 21;
     }

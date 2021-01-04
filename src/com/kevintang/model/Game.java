@@ -27,6 +27,7 @@ public class Game {
     public void run() {
         Driver driver = Driver.getInstance();
         while (true) {
+            System.out.println(" ");
             driver.run(world,new PlaceholderStrategy());
             Menu gameMenu = new GameMenu();
             gameMenu.run();
@@ -101,7 +102,7 @@ public class Game {
                     FileUtils.deleteDirectory(file);
                     System.out.println("World: " + file.getName() + " deleted.");
                 } catch (IOException e) {
-                    System.out.println("ERROR: directory deletion failed.");
+                    e.printStackTrace();
                 }
             } else if (input.equals("N") || input.equals("n")) {
                 System.out.println("Delete operation terminated.");

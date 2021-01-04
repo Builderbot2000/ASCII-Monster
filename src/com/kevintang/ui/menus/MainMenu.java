@@ -29,7 +29,8 @@ public class MainMenu extends Menu {
 
     @Override
     public void onSelectListener(String in) {
-        switch (in) {
+        String input = in.toLowerCase();
+        switch (input) {
             case "t" -> {
                 if (Game.getInstance().getWorld() == null) System.out.println("No world loaded!");
                 else Game.getInstance().run();

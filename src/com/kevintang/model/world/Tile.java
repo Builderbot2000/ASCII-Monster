@@ -25,6 +25,7 @@ public class Tile implements Serializable {
      */
     public char getSymbol() {
         if (entities.size() != 0) symbol = entities.get(0).getSymbol();
+        else symbol = '_';
         return symbol;
     }
 
