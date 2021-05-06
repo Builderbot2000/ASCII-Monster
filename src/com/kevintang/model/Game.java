@@ -3,6 +3,7 @@ package com.kevintang.model;
 import com.kevintang.Main;
 import com.kevintang.model.world.World;
 import com.kevintang.ui.Driver;
+import com.kevintang.ui.displayStrategies.EmptyHUDStrategy;
 import com.kevintang.ui.displayStrategies.PlaceholderStrategy;
 import com.kevintang.ui.menus.GameMenu;
 import com.kevintang.ui.menus.Menu;
@@ -28,7 +29,7 @@ public class Game {
         Driver driver = Driver.getInstance();
         while (true) {
             System.out.println(" ");
-            driver.run(world,new PlaceholderStrategy());
+            driver.run(world,new EmptyHUDStrategy());
             Menu gameMenu = new GameMenu();
             gameMenu.run();
             Scanner scanner = Main.getScanner();

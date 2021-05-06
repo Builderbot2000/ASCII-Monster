@@ -1,13 +1,12 @@
 package com.kevintang.model.world;
 
-import com.kevintang.model.entities.Character;
 import com.kevintang.model.entities.Entity;
 import com.kevintang.model.entities.Player;
-import com.kevintang.ui.displayStrategies.DisplayStrategy;
+import com.kevintang.model.world.mapGenStrategies.MapGenStrategy;
 import com.kevintang.ui.Pixel;
+import com.kevintang.ui.displayStrategies.DisplayStrategy;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class World implements DisplayStrategy, Serializable {
 
@@ -19,14 +18,9 @@ public class World implements DisplayStrategy, Serializable {
         this.name = name;
     }
 
-    public void generateMap(int height, int width) {
+    public void generateMap(int height, int width, MapGenStrategy strategy) {
         map = new Map(height, width);
-        // Dummy generation: fill map board with x
-        for (int y=0; y<height; y++) {
-            for (int x=0; x<width; x++) {
-                map.getBoard()[y][x].setSymbol('_');
-            }
-        }
+        strategy.generateMap(map);
     }
 
     /**
@@ -57,31 +51,38 @@ public class World implements DisplayStrategy, Serializable {
         return screen;
     }
 
-    public void spawnEntity(Entity entity) {
+    public boolean spawnEntity(Entity entity) {
         try {
-            map.getBoard()[entity.getY()][entity.getX()].getEntities().add(entity);
             if (entity instanceof Player) player = (Player) entity;
+            return placeEntity(entity, entity.getX(), entity.getY(), 0);
         } catch (NullPointerException e) {
             System.out.println("Missing information in entity parameter!");
+            return false;
         }
     }
 
-    public void placeEntity(Entity entity, int targetX, int targetY) {
+    public boolean placeEntity(Entity entity, int targetX, int targetY, int mode) {
         try {
+            Tile tile = map.getBoard()[targetY][targetX];
+            if (!tile.getTerrain().isPassable(entity)) {
+                if (mode != 0) System.out.println("Cannot traverse terrain!");
+                return false;
+            }
             map.getBoard()[entity.getY()][entity.getX()].getEntities().remove(entity);
-            ArrayList<Entity> targetEntities = map.getBoard()[targetY][targetX].getEntities();
-            targetEntities.add(entity);
-            for (Entity resident : targetEntities) {
+            tile.getEntities().add(entity);
+            for (Entity resident : tile.getEntities()) {
                 resident.encounter(entity);
             }
             entity.setX(targetX);
             entity.setY(targetY);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+            return true;
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Cannot relocate, out of bounds!");
+            return false;
         }
     }
 
-    public void moveEntity(Entity entity, Direction direction, int distance) {
+    public boolean moveEntity(Entity entity, Direction direction, int distance) {
         int targetX = entity.getX();
         int targetY = entity.getY();
         switch (direction) {
@@ -90,7 +91,7 @@ public class World implements DisplayStrategy, Serializable {
             case EAST -> targetX += distance;
             case WEST -> targetX -= distance;
         }
-        placeEntity(entity, targetX, targetY);
+        return placeEntity(entity, targetX, targetY, 1);
     }
 
     public String getName() {

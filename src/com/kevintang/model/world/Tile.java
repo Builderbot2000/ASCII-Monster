@@ -1,6 +1,7 @@
 package com.kevintang.model.world;
 
 import com.kevintang.model.entities.Entity;
+import com.kevintang.model.world.terrains.Terrain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +11,8 @@ public class Tile implements Serializable {
     private char symbol;
     private int y;
     private int x;
-    private ArrayList<Entity> entities;
+    private final ArrayList<Entity> entities;
+    private Terrain terrain;
 
     public Tile(char symbol, int y, int x) {
         this.symbol = symbol;
@@ -25,7 +27,7 @@ public class Tile implements Serializable {
      */
     public char getSymbol() {
         if (entities.size() != 0) symbol = entities.get(0).getSymbol();
-        else symbol = '_';
+        else symbol = terrain.getSymbol();
         return symbol;
     }
 
@@ -51,5 +53,13 @@ public class Tile implements Serializable {
 
     public ArrayList<Entity> getEntities() {
         return entities;
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
     }
 }

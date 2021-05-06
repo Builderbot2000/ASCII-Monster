@@ -1,5 +1,7 @@
 package com.kevintang.model.world;
 
+import com.kevintang.model.world.terrains.Plain;
+
 import java.io.Serializable;
 
 public class Map implements Serializable {

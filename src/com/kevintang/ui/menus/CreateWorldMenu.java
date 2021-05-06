@@ -4,6 +4,8 @@ import com.kevintang.Main;
 import com.kevintang.model.Game;
 import com.kevintang.model.entities.Player;
 import com.kevintang.model.world.World;
+import com.kevintang.model.world.mapGenStrategies.RealisticWorldStrategy;
+import com.kevintang.model.world.mapGenStrategies.SuperFlatStrategy;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -33,7 +35,7 @@ public class CreateWorldMenu extends Menu {
         int width = Integer.parseInt(scanner.nextLine());
 
         World world = new World(name);
-        world.generateMap(height, width);
+        world.generateMap(height, width, new RealisticWorldStrategy());
         System.out.println("World created.");
         return world;
     }
@@ -44,11 +46,18 @@ public class CreateWorldMenu extends Menu {
         int xLimit = world.getMap().getWidth();
         int yLimit = world.getMap().getHeight();
         Random random = new Random();
-        int x = random.nextInt(xLimit);
-        int y = random.nextInt(yLimit);
 
-        Player player = new Player(name, x, y);
-        world.spawnEntity(player);
+        // Try to place player in a random valid location
+        int maxTries = 1000;
+        int tries = 0;
+        while (tries < maxTries) {
+            int x = random.nextInt(xLimit);
+            int y = random.nextInt(yLimit);
+            Player player = new Player(name, x, y);
+            if (world.spawnEntity(player)) return;
+            tries++;
+        }
+        System.out.println("Player placement failed.");
     }
 
     @Override
