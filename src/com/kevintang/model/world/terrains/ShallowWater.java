@@ -2,17 +2,19 @@ package com.kevintang.model.world.terrains;
 
 import com.kevintang.model.entities.Entity;
 
-public class Mountain extends Terrain {
-
+public class ShallowWater extends Terrain{
+    @Override
     public char getSymbol() {
-        return 'A';
+        return '~';
     }
 
+    @Override
     public boolean isPassable(Entity entity) {
-        return false;
+        return true;
     }
 
+    @Override
     public int getMovementCost(Entity entity) {
-        return 5;
+        return 3;
     }
 }

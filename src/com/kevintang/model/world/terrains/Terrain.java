@@ -4,11 +4,10 @@ import com.kevintang.model.entities.Entity;
 
 import java.io.Serializable;
 
-public interface Terrain extends Serializable {
+public abstract class Terrain implements Serializable {
+    public abstract char getSymbol();
 
-    char getSymbol();
+    public abstract boolean isPassable(Entity entity);
 
-    boolean isPassable(Entity entity);
-
-    int getMovementCost(Entity entity);
+    public abstract int getMovementCost(Entity entity);
 }

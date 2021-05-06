@@ -2,7 +2,7 @@ package com.kevintang.model.world.terrains;
 
 import com.kevintang.model.entities.Entity;
 
-public class Plain implements Terrain {
+public class Plain extends Terrain {
 
     @Override
     public char getSymbol() {
