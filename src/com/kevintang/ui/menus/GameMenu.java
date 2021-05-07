@@ -1,10 +1,8 @@
 package com.kevintang.ui.menus;
 
 import com.kevintang.model.Game;
-import com.kevintang.model.entities.Player;
+import com.kevintang.model.entities.characters.Player;
 import com.kevintang.model.world.Direction;
-
-import java.util.Locale;
 
 public class GameMenu extends Menu {
 

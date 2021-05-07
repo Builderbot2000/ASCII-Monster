@@ -1,7 +1,8 @@
 package com.kevintang.model.world;
 
 import com.kevintang.model.entities.Entity;
-import com.kevintang.model.entities.Player;
+import com.kevintang.model.entities.characters.Player;
+import com.kevintang.model.world.entityGenStrategies.EntityGenStrategy;
 import com.kevintang.model.world.mapGenStrategies.MapGenStrategy;
 import com.kevintang.ui.Pixel;
 import com.kevintang.ui.displayStrategies.DisplayStrategy;
@@ -18,9 +19,10 @@ public class World implements DisplayStrategy, Serializable {
         this.name = name;
     }
 
-    public void generateMap(int height, int width, MapGenStrategy strategy) {
+    public void generateMap(int height, int width, MapGenStrategy mapStrategy, EntityGenStrategy entityStrategy) {
         map = new Map(height, width);
-        strategy.generateMap(map);
+        mapStrategy.generateMap(map);
+        entityStrategy.generateEntities(this);
     }
 
     /**

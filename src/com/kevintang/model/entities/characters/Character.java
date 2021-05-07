@@ -1,6 +1,8 @@
-package com.kevintang.model.entities;
+package com.kevintang.model.entities.characters;
 
-public class Character extends Entity {
+import com.kevintang.model.entities.Entity;
+
+public abstract class Character extends Entity {
 
     public static final char SYMBOL = 'C';
 

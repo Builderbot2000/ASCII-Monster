@@ -2,10 +2,10 @@ package com.kevintang.ui.menus;
 
 import com.kevintang.Main;
 import com.kevintang.model.Game;
-import com.kevintang.model.entities.Player;
+import com.kevintang.model.entities.characters.Player;
 import com.kevintang.model.world.World;
+import com.kevintang.model.world.entityGenStrategies.GenericSpawnStrategy;
 import com.kevintang.model.world.mapGenStrategies.RealisticWorldStrategy;
-import com.kevintang.model.world.mapGenStrategies.SuperFlatStrategy;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -35,7 +35,7 @@ public class CreateWorldMenu extends Menu {
         int width = Integer.parseInt(scanner.nextLine());
 
         World world = new World(name);
-        world.generateMap(height, width, new RealisticWorldStrategy());
+        world.generateMap(height, width, new RealisticWorldStrategy(), new GenericSpawnStrategy());
         System.out.println("World created.");
         return world;
     }

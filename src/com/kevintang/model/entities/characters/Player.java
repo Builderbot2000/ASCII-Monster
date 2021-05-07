@@ -1,6 +1,8 @@
-package com.kevintang.model.entities;
+package com.kevintang.model.entities.characters;
 
-public class Player extends Entity{
+import com.kevintang.model.entities.Entity;
+
+public class Player extends Entity {
 
     public static final char SYMBOL = '$';
 
