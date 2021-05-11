@@ -1,12 +1,11 @@
 package com.kevintang.model.world.entityGenStrategies;
 
 import com.kevintang.model.entities.locations.City;
-import com.kevintang.model.world.Map;
+import com.kevintang.model.entities.locations.Dungeon;
 import com.kevintang.model.world.Tile;
 import com.kevintang.model.world.World;
-import com.kevintang.model.world.mapGenStrategies.RealisticWorldStrategy;
+import com.kevintang.model.world.terrains.Mountain;
 import com.kevintang.model.world.terrains.Plain;
-import com.kevintang.model.world.terrains.Water;
 
 import java.util.Random;
 
@@ -19,7 +18,7 @@ public class GenericSpawnStrategy implements EntityGenStrategy{
     public void generateEntities(World world) {
         this.world = world;
         spawnCities(10);
-        spawnDungeons();
+        spawnDungeons(10);
     }
 
     void spawnCities(int cityCount) {
@@ -27,22 +26,34 @@ public class GenericSpawnStrategy implements EntityGenStrategy{
         while (count < cityCount) {
             Tile target = null;
             while (target == null
-                    || !(target.getTerrain() instanceof Plain)
-                    || !target.getEntities().isEmpty()) {
+                    || !(target.getTerrain() instanceof Plain)){
                 int randomX = random.nextInt(world.getMap().getWidth());
                 int randomY = random.nextInt(world.getMap().getHeight());
                 target = world.getMap().getBoard()[randomY][randomX];
-                System.out.println("Searching...");
-                if (target.getEntities().isEmpty()) {
+                if (target.getEntities().isEmpty() && target.getTerrain() instanceof Plain) {
                     world.getMap().getBoard()[randomY][randomX].getEntities().add(new City(randomX,randomY));
                     count++;
-                    System.out.println("City plopped.");
+                    break;
                 }
             }
         }
     }
 
-    void spawnDungeons() {
-
+    void spawnDungeons(int dungeonCount) {
+        int count = 0;
+        while (count < dungeonCount) {
+            Tile target = null;
+            while (target == null
+                    || !(target.getTerrain() instanceof Mountain)){
+                int randomX = random.nextInt(world.getMap().getWidth());
+                int randomY = random.nextInt(world.getMap().getHeight());
+                target = world.getMap().getBoard()[randomY][randomX];
+                if (target.getEntities().isEmpty() && target.getTerrain() instanceof Mountain) {
+                    world.getMap().getBoard()[randomY][randomX].getEntities().add(new Dungeon(randomX,randomY));
+                    count++;
+                    break;
+                }
+            }
+        }
     }
 }

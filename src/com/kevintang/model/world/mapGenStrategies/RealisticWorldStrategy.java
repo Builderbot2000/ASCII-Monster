@@ -3,6 +3,7 @@ package com.kevintang.model.world.mapGenStrategies;
 import com.kevintang.model.world.Direction;
 import com.kevintang.model.world.Map;
 import com.kevintang.model.world.Tile;
+import com.kevintang.model.world.World;
 import com.kevintang.model.world.terrains.Mountain;
 import com.kevintang.model.world.terrains.Plain;
 import com.kevintang.model.world.terrains.ShallowWater;
@@ -17,14 +18,14 @@ public class RealisticWorldStrategy implements MapGenStrategy {
     private Map map;
 
     @Override
-    public void generateMap(Map map) {
-        this.map = map;
+    public void generateMap(World world) {
+        this.map = world.getMap();
         floodWorld();
         plotContinents(10, Math.min(map.getWidth(), map.getHeight())*2);
         erodeCoastline(map.getWidth()*map.getHeight()/10);
         raiseMountains(8, 30);
         carveRivers(6,10,30);
-        debugPrintMap();
+        // world.debugPrintMap();
     }
 
     /**
@@ -261,16 +262,5 @@ public class RealisticWorldStrategy implements MapGenStrategy {
             new RiverProbe(origin, random.nextInt(maxLength)+minLength).flood();
             count++;
         }
-    }
-
-    private void debugPrintMap() {
-        StringBuilder res = new StringBuilder();
-        for (int y=0; y<map.getHeight(); y++) {
-            for (int x=0; x<map.getWidth(); x++) {
-                res.append(" ").append(map.getBoard()[y][x].getSymbol());
-            }
-            res.append('\n');
-        }
-        System.out.println(res);
     }
 }

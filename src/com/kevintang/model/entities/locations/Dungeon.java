@@ -6,8 +6,8 @@ public class Dungeon extends Location{
 
     public static final char SYMBOL = 'D';
 
-    public Dungeon(char symbol, String name, int x, int y) {
-        super(SYMBOL, name, x, y);
+    public Dungeon(int x, int y) {
+        super(SYMBOL, "NULL", x, y);
     }
 
     @Override

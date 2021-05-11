@@ -1,8 +1,8 @@
 package com.kevintang.model.world.mapGenStrategies;
 
-import com.kevintang.model.world.Map;
+import com.kevintang.model.world.World;
 
 public interface MapGenStrategy {
 
-    void generateMap(Map map);
+    void generateMap(World world);
 }

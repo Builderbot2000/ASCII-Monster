@@ -21,8 +21,20 @@ public class World implements DisplayStrategy, Serializable {
 
     public void generateMap(int height, int width, MapGenStrategy mapStrategy, EntityGenStrategy entityStrategy) {
         map = new Map(height, width);
-        mapStrategy.generateMap(map);
+        mapStrategy.generateMap(this);
         entityStrategy.generateEntities(this);
+        debugPrintMap();
+    }
+
+    public void debugPrintMap() {
+        StringBuilder res = new StringBuilder();
+        for (int y=0; y<map.getHeight(); y++) {
+            for (int x=0; x<map.getWidth(); x++) {
+                res.append(" ").append(map.getBoard()[y][x].getSymbol());
+            }
+            res.append('\n');
+        }
+        System.out.println(res);
     }
 
     /**
