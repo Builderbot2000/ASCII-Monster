@@ -3,6 +3,9 @@ package com.kevintang.ui;
 import com.kevintang.Main;
 import com.kevintang.ui.displayStrategies.DisplayStrategy;
 
+/**
+ * ASCII graphics driver for the game
+ */
 public class Driver {
 
     private static Driver instance;
@@ -14,23 +17,35 @@ public class Driver {
 
     private Driver() { }
 
+    /**
+     * Generates the updated display of the current state of the game
+     * @param boardStrategy The current state of the game world
+     * @param HUDStrategy The current state of the game character
+     */
     public void run(DisplayStrategy boardStrategy, DisplayStrategy HUDStrategy) {
 
+        // Create display and load settings
         Display display;
-        Settings settings = Settings.getInstance();
+        ScreenSettings screenSettings = ScreenSettings.getInstance();
         Main.clearConsole();
 
-        // Display Game Board
+        // Generate display of Game Board
         if (boardStrategy != null) {
-            display = new Display(settings.getScreenHeight(), settings.getScreenWidth());
+            // Create empty display
+            display = new Display(screenSettings.getScreenHeight(), screenSettings.getScreenWidth());
+            // Load game state into display
             display.show(boardStrategy);
+            // Output display text onto console
             System.out.println(display.toString() + '\n');
         }
 
-        // Display HUD
+        // Generate display of HUD
         if (HUDStrategy != null) {
-            display = new Display(settings.getHUDHeight(), settings.getHUDWidth());
+            // Create empty display
+            display = new Display(screenSettings.getHUDHeight(), screenSettings.getHUDWidth());
+            // Load game state into display
             display.show(HUDStrategy);
+            // Output display text onto console
             System.out.println(display.toString() + '\n');
         }
     }

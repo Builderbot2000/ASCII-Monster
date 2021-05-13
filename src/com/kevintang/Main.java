@@ -11,15 +11,18 @@ import java.util.Scanner;
 public class Main {
 
     private static Scanner scanner;
+    // Location of the world save files directory
     private static final String savesFilePath =
             System.getProperty("user.dir").replaceAll("\\\\", "/") + "/saves";
 
 
     public static void main(String[] args) {
 
+        // Create input scanner instance
         scanner = new Scanner(System.in);
 
         clearConsole();
+        // Create new game instance and start main menu
         Game game = Game.getInstance();
         Menu menu = new MainMenu();
         menu.run();
@@ -27,11 +30,18 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Clears the console
+     */
+    public static void clearConsole() { }
+
+    // Getters
+
     public static Scanner getScanner() {
         return scanner;
     }
 
     public static String getSavesFilePath() { return savesFilePath; }
 
-    public static void clearConsole() { }
+
 }

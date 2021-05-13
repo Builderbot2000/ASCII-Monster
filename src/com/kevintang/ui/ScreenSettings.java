@@ -1,11 +1,14 @@
 package com.kevintang.ui;
 
-public class Settings {
+/**
+ * Predefined and preserved settings of screen properties
+ */
+public class ScreenSettings {
 
-    private static Settings instance;
+    private static ScreenSettings instance;
 
-    public static Settings getInstance() {
-        if (instance == null) instance = new Settings();
+    public static ScreenSettings getInstance() {
+        if (instance == null) instance = new ScreenSettings();
         return instance;
     }
 
@@ -14,7 +17,7 @@ public class Settings {
     private int HUDHeight;
     private int HUDWidth;
 
-    public Settings() {
+    public ScreenSettings() {
         // Inject default settings
         screenHeight = 21;
         screenWidth = 33;
@@ -22,8 +25,10 @@ public class Settings {
         HUDWidth = 33;
     }
 
-    public static void setInstance(Settings instance) {
-        Settings.instance = instance;
+    // Getters & Setters
+
+    public static void setInstance(ScreenSettings instance) {
+        ScreenSettings.instance = instance;
     }
 
     public int getScreenHeight() {

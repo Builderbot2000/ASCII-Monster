@@ -3,6 +3,9 @@ package com.kevintang.ui.menus;
 import com.kevintang.model.Game;
 import com.kevintang.model.world.World;
 
+/**
+ * First menu that appears in game, and the base level of menu that other menus return to
+ */
 public class MainMenu extends Menu {
 
     public MainMenu() {
@@ -17,6 +20,10 @@ public class MainMenu extends Menu {
         options.add("[b] Exit");
     }
 
+    /**
+     * Displays current loaded world
+     * @return Whether to break the looping display of this menu
+     */
     @Override
     public boolean routine() {
         World world = Game.getInstance().getWorld();
@@ -27,6 +34,10 @@ public class MainMenu extends Menu {
         return false;
     }
 
+    /**
+     * See options
+     * @param in User input
+     */
     @Override
     public void onSelectListener(String in) {
         String input = in.toLowerCase();

@@ -10,6 +10,9 @@ import com.kevintang.model.world.mapGenStrategies.RealisticWorldStrategy;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * The create new world save menu
+ */
 public class CreateWorldMenu extends Menu {
 
     public CreateWorldMenu() {
@@ -17,6 +20,10 @@ public class CreateWorldMenu extends Menu {
         options.add("[b] Back to main menu");
     }
 
+    /**
+     * Creates blank, un-generated world
+     * @return Whether to break the looping display of this menu
+     */
     @Override
     public boolean routine() {
         Scanner scanner = Main.getScanner();
@@ -26,6 +33,11 @@ public class CreateWorldMenu extends Menu {
         return true;
     }
 
+    /**
+     * Prompt to specify world
+     * @param scanner Scanner for user input
+     * @return The newly created world
+     */
     private World createWorld(Scanner scanner) {
         System.out.println("Please enter name of the world.");
         String name = scanner.nextLine();

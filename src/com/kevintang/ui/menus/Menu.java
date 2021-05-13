@@ -5,11 +5,14 @@ import com.kevintang.Main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Base class for menus
+ */
 public abstract class Menu {
 
-    String title;
-    String description;
-    ArrayList<String> options;
+    String title; // Title of the menu
+    String description; // Description of the menu
+    ArrayList<String> options; // Menu options
 
     public Menu(String title, String description) {
         this.title = title;
@@ -17,6 +20,10 @@ public abstract class Menu {
         options = new ArrayList<>();
     }
 
+    /**
+     * Produces the string representation of the menu display
+     * @return The string representation of the menu display
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -28,10 +35,13 @@ public abstract class Menu {
         return stringBuilder.toString();
     }
 
+    /**
+     * Refresh menu display on every iteration unless broken by entry of "b" or routine
+     */
     public void run() {
         while (true) {
             Main.clearConsole();
-            System.out.println(this.toString());
+            System.out.println(this);
             if (routine()) break;
             Scanner scanner = Main.getScanner();
             System.out.println("Enter:");
@@ -41,9 +51,19 @@ public abstract class Menu {
         }
     }
 
+    /**
+     * Displays content that does not fit into the standard format of menus
+     * @return Whether to break the looping display of this menu
+     */
     public abstract boolean routine();
 
+    /**
+     * Event trigger when menu option is selected
+     * @param in User input
+     */
     public abstract void onSelectListener(String in);
+
+    // Getters & Setters
 
     public String getTitle() {
         return title;

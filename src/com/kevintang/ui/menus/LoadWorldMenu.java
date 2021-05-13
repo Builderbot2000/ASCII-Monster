@@ -5,10 +5,16 @@ import com.kevintang.model.Game;
 
 import java.io.File;
 
+/**
+ * The load world save menu
+ */
 public class LoadWorldMenu extends Menu {
 
     private final File[] listOfFiles;
 
+    /**
+     * Get all files inside world saves directory and list them as options
+     */
     public LoadWorldMenu() {
         super("Load World", "load a world from saved worlds:");
         String saveDirectoryPath = Main.getSavesFilePath();
@@ -26,6 +32,10 @@ public class LoadWorldMenu extends Menu {
     @Override
     public boolean routine() { return false; }
 
+    /**
+     * Loads the world save file with index corresponding to user input number
+     * @param in User input
+     */
     @Override
     public void onSelectListener(String in) {
         int index = Integer.parseInt(in);

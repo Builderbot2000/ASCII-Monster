@@ -7,7 +7,7 @@ import com.kevintang.model.world.Direction;
 public class GameMenu extends Menu {
 
     Game game = Game.getInstance();
-    Player player = Game.getInstance().getWorld().getPlayer();
+    Player player = Game.getInstance().getWorld().getPlayer(); // Utility reference for the player
 
     public GameMenu() {
         super("World: " + Game.getInstance().getWorld().getName(), "Choose your action.");
@@ -25,6 +25,10 @@ public class GameMenu extends Menu {
         return true;
     }
 
+    /**
+     * See options
+     * @param in User input
+     */
     @Override
     public void onSelectListener(String in) {
         String input = in.toLowerCase();

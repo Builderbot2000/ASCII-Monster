@@ -1,5 +1,8 @@
 package com.kevintang.ui;
 
+/**
+ * A single ASCII symbol to be displayed on screen in console line output form
+ */
 public class Pixel {
 
     private char symbol;
