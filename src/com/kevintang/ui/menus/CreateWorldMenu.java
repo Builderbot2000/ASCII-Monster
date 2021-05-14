@@ -28,17 +28,19 @@ public class CreateWorldMenu extends Menu {
     public boolean routine() {
         Scanner scanner = Main.getScanner();
         Game.getInstance().setWorld(createWorld(scanner));
+
         World world = Game.getInstance().getWorld();
         createPlayer(scanner, world);
         return true;
     }
 
     /**
-     * Prompt to specify world
+     * Prompt to specify world properties and create world accordingly
      * @param scanner Scanner for user input
      * @return The newly created world
      */
     private World createWorld(Scanner scanner) {
+        // Prompt for world properties
         System.out.println("Please enter name of the world.");
         String name = scanner.nextLine();
         System.out.println("Please enter world height.");
@@ -46,12 +48,18 @@ public class CreateWorldMenu extends Menu {
         System.out.println("Please enter world width.");
         int width = Integer.parseInt(scanner.nextLine());
 
+        // Generate and return new world object based on given properties
         World world = new World(name);
         world.generateMap(height, width, new RealisticWorldStrategy(), new GenericSpawnStrategy());
         System.out.println("World created.");
         return world;
     }
 
+    /**
+     * Prompt to specify player properties and create new player character accordingly
+     * @param scanner Scanner for user input
+     * @param world The world that the player character is going to be in
+     */
     private void createPlayer(Scanner scanner, World world) {
         System.out.println("\nPlease enter name of your character.");
         String name = scanner.nextLine();

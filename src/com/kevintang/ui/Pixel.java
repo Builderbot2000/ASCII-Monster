@@ -15,6 +15,8 @@ public class Pixel {
         this.x = x;
     }
 
+    /* Getters & Setters */
+
     public char getSymbol() {
         return symbol;
     }

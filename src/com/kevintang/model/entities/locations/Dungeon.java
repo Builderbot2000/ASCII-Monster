@@ -2,6 +2,9 @@ package com.kevintang.model.entities.locations;
 
 import com.kevintang.model.entities.Entity;
 
+/**
+ * A dungeon
+ */
 public class Dungeon extends Location{
 
     public static final char SYMBOL = 'D';

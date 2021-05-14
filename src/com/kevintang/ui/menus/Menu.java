@@ -63,7 +63,7 @@ public abstract class Menu {
      */
     public abstract void onSelectListener(String in);
 
-    // Getters & Setters
+    /* Getters & Setters */
 
     public String getTitle() {
         return title;

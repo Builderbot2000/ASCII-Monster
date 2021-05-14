@@ -2,6 +2,9 @@ package com.kevintang.ui.displayStrategies;
 
 import com.kevintang.ui.Pixel;
 
+/**
+ * Displays a field full of 'o's
+ */
 public class PlaceholderStrategy implements DisplayStrategy {
     @Override
     public Pixel[][] generateDisplayStrategy(Pixel[][] screen) {

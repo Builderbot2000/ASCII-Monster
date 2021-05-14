@@ -7,11 +7,14 @@ import com.kevintang.model.world.World;
 import com.kevintang.model.world.terrains.Mountain;
 import com.kevintang.model.world.terrains.Plain;
 import com.kevintang.model.world.terrains.ShallowWater;
-import com.kevintang.model.world.terrains.Water;
+import com.kevintang.model.world.terrains.DeepWater;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Plots the map according to realistic terrain
+ */
 public class RealisticWorldStrategy implements MapGenStrategy {
 
     private static final Random random = new Random();
@@ -34,11 +37,16 @@ public class RealisticWorldStrategy implements MapGenStrategy {
     private void floodWorld() {
         for (int y=0; y< map.getHeight(); y++) {
             for (int x=0; x<map.getWidth(); x++) {
-                map.getBoard()[y][x].setTerrain(new Water());
+                map.getBoard()[y][x].setTerrain(new DeepWater());
             }
         }
     }
 
+    /**
+     * Plot circular continents in the water
+     * @param numOriginPoints Number of origin points from which continents will spawn
+     * @param maxRadius Maximum radius that restricts the size of a continent
+     */
     private void plotContinents(int numOriginPoints, int maxRadius) {
 
         // Plot origin points
@@ -61,6 +69,7 @@ public class RealisticWorldStrategy implements MapGenStrategy {
         }
     }
 
+    /* Utility Methods for plotContinents() */
     static class Circle {
 
         public int originX;
@@ -81,7 +90,26 @@ public class RealisticWorldStrategy implements MapGenStrategy {
         return dx*dx + dy*dy <= radius;
     }
 
-    // Probe to generate realistic coastal contours
+    /**
+     * Shape a natural looking coastline by using free-travelling probes to convert coastal line into water
+     * @param probeCount How many erosion probes to spawn to shape the coastline
+     */
+    private void erodeCoastline(int probeCount) {
+        int count = 0;
+        while (count < probeCount) {
+            int x = random.nextInt(map.getWidth());
+            int y = random.nextInt(map.getHeight());
+            Tile tile = map.getBoard()[y][x];
+            if (tile.getTerrain() instanceof DeepWater) {
+                new CoastProbe(tile).erode();
+                count++;
+            }
+        }
+    }
+
+    /**
+     * Probe to generate realistic coastal contours
+     */
     class CoastProbe {
 
         public Tile lastTile;
@@ -107,8 +135,8 @@ public class RealisticWorldStrategy implements MapGenStrategy {
             // Try to set target tile to water if possible, else move forward and try again
             try {
                 Tile targetTile = map.getBoard()[targetY][targetX];
-                if (!(targetTile.getTerrain() instanceof Water)) {
-                    targetTile.setTerrain(new Water());
+                if (!(targetTile.getTerrain() instanceof DeepWater)) {
+                    targetTile.setTerrain(new DeepWater());
                 } else {
                     lastTile = currentTile;
                     currentTile = targetTile;
@@ -121,23 +149,28 @@ public class RealisticWorldStrategy implements MapGenStrategy {
     }
 
     /**
-     * Shape a natural looking coastline by using free-travelling probes to convert coastal line into water
-     * @param probeCount How many erosion probes to spawn to shape the coastline
+     * Shape realistic mountain ranges on land by using branching probes
+     * @param probeCount Number of mountains ranges to be formed
+     * @param mountainSize How large each mountain range is
      */
-    private void erodeCoastline(int probeCount) {
+    private void raiseMountains(int probeCount, int mountainSize) {
+        // Generate origin point in non-water tile
         int count = 0;
         while (count < probeCount) {
-            int x = random.nextInt(map.getWidth());
-            int y = random.nextInt(map.getHeight());
-            Tile tile = map.getBoard()[y][x];
-            if (tile.getTerrain() instanceof Water) {
-                new CoastProbe(tile).erode();
-                count++;
+            Tile origin = null;
+            while (origin == null || origin.getTerrain() instanceof DeepWater) {
+                int randomX = random.nextInt(map.getWidth());
+                int randomY = random.nextInt(map.getHeight());
+                origin = map.getBoard()[randomY][randomX];
             }
+            new MountainProbe(origin, mountainSize).raise();
+            count++;
         }
     }
 
-    // Probe to generate realistic mountain ranges
+    /**
+     * Probe to generate realistic mountain ranges
+     */
     class MountainProbe {
 
         public Tile lastTile;
@@ -164,7 +197,7 @@ public class RealisticWorldStrategy implements MapGenStrategy {
             // spawn new mountain probe with smaller size given chance
             try {
                 Tile targetTile = map.getBoard()[targetY][targetX];
-                if (!(targetTile.getTerrain() instanceof Water)) {
+                if (!(targetTile.getTerrain() instanceof DeepWater)) {
                     targetTile.setTerrain(new Mountain());
                     size--;
                     if (size <= 1) return;
@@ -184,25 +217,29 @@ public class RealisticWorldStrategy implements MapGenStrategy {
     }
 
     /**
-     * Shape realistic mountain ranges on land by using splitting probes
+     * Shape realistic waterways on land by using branching probes
      * @param probeCount Number of mountains ranges to be formed
-     * @param mountainSize How large each mountain range is
+     * @param minLength Minimum length of a river
+     * @param maxLength Maximum length of a river
      */
-    private void raiseMountains(int probeCount, int mountainSize) {
+    private void carveRivers(int probeCount, int minLength, int maxLength) {
         // Generate origin point in non-water tile
         int count = 0;
         while (count < probeCount) {
             Tile origin = null;
-            while (origin == null || origin.getTerrain() instanceof Water) {
+            while (origin == null || origin.getTerrain() instanceof DeepWater) {
                 int randomX = random.nextInt(map.getWidth());
                 int randomY = random.nextInt(map.getHeight());
                 origin = map.getBoard()[randomY][randomX];
             }
-            new MountainProbe(origin, mountainSize).raise();
+            new RiverProbe(origin, random.nextInt(maxLength)+minLength).flood();
             count++;
         }
     }
 
+    /**
+     * Probe to generate realistic rivers and marshlands
+     */
     class RiverProbe {
         public Tile lastTile;
         public Tile currentTile;
@@ -233,7 +270,7 @@ public class RealisticWorldStrategy implements MapGenStrategy {
             // Try to set target tile to ShallowWater if possible, else move forward and try again
             try {
                 Tile targetTile = map.getBoard()[targetY][targetX];
-                if (targetTile.getTerrain() instanceof Water) return;
+                if (targetTile.getTerrain() instanceof DeepWater) return;
                 if (!(targetTile.getTerrain() instanceof ShallowWater)) {
                     targetTile.setTerrain(new ShallowWater());
                     length--;
@@ -246,21 +283,6 @@ public class RealisticWorldStrategy implements MapGenStrategy {
             } catch (IndexOutOfBoundsException e) {
                 this.flood();
             }
-        }
-    }
-
-    private void carveRivers(int probeCount, int minLength, int maxLength) {
-        // Generate origin point in non-water tile
-        int count = 0;
-        while (count < probeCount) {
-            Tile origin = null;
-            while (origin == null || origin.getTerrain() instanceof Water) {
-                int randomX = random.nextInt(map.getWidth());
-                int randomY = random.nextInt(map.getHeight());
-                origin = map.getBoard()[randomY][randomX];
-            }
-            new RiverProbe(origin, random.nextInt(maxLength)+minLength).flood();
-            count++;
         }
     }
 }

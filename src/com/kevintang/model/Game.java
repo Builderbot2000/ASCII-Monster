@@ -3,7 +3,8 @@ package com.kevintang.model;
 import com.kevintang.Main;
 import com.kevintang.model.world.World;
 import com.kevintang.ui.Driver;
-import com.kevintang.ui.displayStrategies.EmptyHUDStrategy;
+import com.kevintang.ui.displayStrategies.HUDStrategies.EmptyHUDStrategy;
+import com.kevintang.ui.displayStrategies.boardStrategies.WorldStrategy;
 import com.kevintang.ui.menus.GameMenu;
 import com.kevintang.ui.menus.Menu;
 import org.apache.commons.io.FileUtils;
@@ -23,8 +24,8 @@ public class Game {
         return instance;
     }
 
-    // The current loaded view of the world
-    private World world;
+    private World world; // The current loaded world
+    private World view; // The current level of the world that is in view
 
     public Game() { }
 
@@ -32,13 +33,14 @@ public class Game {
      * Initiates the game cycle
      */
     public void run() {
-        // Create new graphics driver
+        // Create new ASCII graphics driver
         Driver driver = Driver.getInstance();
-        // Iterates screen refresh, generate the updated world and HUD display on each iteration
+
+        // Game loop: generate the updated world and HUD display on each iteration
         while (true) {
             System.out.println(" ");
-            // Calls driver to produce updated world and HUD display
-            driver.run(world,new EmptyHUDStrategy());
+            // Calls driver to output updated world and HUD display
+            driver.run(new WorldStrategy(view),new EmptyHUDStrategy());
             // Displays updated menu
             Menu gameMenu = new GameMenu();
             gameMenu.run();
@@ -144,11 +146,15 @@ public class Game {
         } else System.out.println("Save not found.");
     }
 
-    // Getters & Setters
+    /* Getters & Setters */
 
     public World getWorld() { return world; }
 
     public void setWorld(World world) {
         this.world = world;
     }
+
+    public World getView() { return view; }
+
+    public void setView(World view) { this.view = view; }
 }

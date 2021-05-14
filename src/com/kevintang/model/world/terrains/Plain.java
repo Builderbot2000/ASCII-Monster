@@ -2,6 +2,9 @@ package com.kevintang.model.world.terrains;
 
 import com.kevintang.model.entities.Entity;
 
+/**
+ * Flat plains, easy to traverse and prime location for cities
+ */
 public class Plain extends Terrain {
 
     @Override

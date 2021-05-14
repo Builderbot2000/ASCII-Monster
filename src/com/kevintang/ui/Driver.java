@@ -19,8 +19,8 @@ public class Driver {
 
     /**
      * Generates the updated display of the current state of the game
-     * @param boardStrategy The current state of the game world
-     * @param HUDStrategy The current state of the game character
+     * @param boardStrategy The display of the current state of the game world
+     * @param HUDStrategy The display of the current state of the game character
      */
     public void run(DisplayStrategy boardStrategy, DisplayStrategy HUDStrategy) {
 

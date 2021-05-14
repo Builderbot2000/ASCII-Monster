@@ -25,7 +25,7 @@ public class ScreenSettings {
         HUDWidth = 33;
     }
 
-    // Getters & Setters
+    /* Getters & Setters */
 
     public static void setInstance(ScreenSettings instance) {
         ScreenSettings.instance = instance;

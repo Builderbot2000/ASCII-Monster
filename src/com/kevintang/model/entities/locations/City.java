@@ -2,6 +2,9 @@ package com.kevintang.model.entities.locations;
 
 import com.kevintang.model.entities.Entity;
 
+/**
+ * A city
+ */
 public class City extends Location{
 
     public static final char SYMBOL = 'C';

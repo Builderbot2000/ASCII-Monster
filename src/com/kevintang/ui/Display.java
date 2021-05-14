@@ -39,7 +39,7 @@ public class Display {
         return out.toString();
     }
 
-    // Getters & Setters
+    /* Getters & Setters */
 
     public Pixel[][] getScreen() {
         return screen;

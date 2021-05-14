@@ -2,6 +2,9 @@ package com.kevintang.model.entities.characters;
 
 import com.kevintang.model.entities.Entity;
 
+/**
+ * The player character
+ */
 public class Player extends Entity {
 
     public static final char SYMBOL = '$';

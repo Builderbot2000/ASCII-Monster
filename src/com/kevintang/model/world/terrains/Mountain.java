@@ -2,6 +2,9 @@ package com.kevintang.model.world.terrains;
 
 import com.kevintang.model.entities.Entity;
 
+/**
+ * High mountains, difficult to traverse and often hides dungeons underneath
+ */
 public class Mountain extends Terrain {
 
     public char getSymbol() {
@@ -9,7 +12,7 @@ public class Mountain extends Terrain {
     }
 
     public boolean isPassable(Entity entity) {
-        return false;
+        return true;
     }
 
     public int getMovementCost(Entity entity) {

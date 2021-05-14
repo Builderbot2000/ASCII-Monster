@@ -9,6 +9,9 @@ import com.kevintang.model.world.terrains.Plain;
 
 import java.util.Random;
 
+/**
+ * Spawn entities according to random placement
+ */
 public class GenericSpawnStrategy implements EntityGenStrategy{
 
     private static final Random random = new Random();
@@ -21,6 +24,10 @@ public class GenericSpawnStrategy implements EntityGenStrategy{
         spawnDungeons(10);
     }
 
+    /**
+     * Randomly spawn cities in Plain tiles
+     * @param cityCount Number of cities to be spawned
+     */
     void spawnCities(int cityCount) {
         int count = 0;
         while (count < cityCount) {
@@ -39,6 +46,10 @@ public class GenericSpawnStrategy implements EntityGenStrategy{
         }
     }
 
+    /**
+     * Randomly spawn dungeons in Mountain tiles
+     * @param dungeonCount Number of dungeons to be spawned
+     */
     void spawnDungeons(int dungeonCount) {
         int count = 0;
         while (count < dungeonCount) {

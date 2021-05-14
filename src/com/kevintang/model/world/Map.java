@@ -1,15 +1,21 @@
 package com.kevintang.model.world;
 
-import com.kevintang.model.world.terrains.Plain;
-
 import java.io.Serializable;
 
+/**
+ * The map of the game world where tile data is stored
+ */
 public class Map implements Serializable {
 
-    private Tile[][] board;
+    private Tile[][] board; // Data container for tiles
     private int height;
     private int width;
 
+    /**
+     * At start, populate the entire board with empty tiles
+     * @param height Height of map
+     * @param width Width of map
+     */
     public Map(int height, int width) {
         this.height = height;
         this.width = width;
@@ -20,6 +26,8 @@ public class Map implements Serializable {
             }
         }
     }
+
+    /* Getters & Setters */
 
     public Tile[][] getBoard() {
         return board;

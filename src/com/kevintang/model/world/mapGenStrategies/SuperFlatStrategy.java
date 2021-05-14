@@ -4,6 +4,9 @@ import com.kevintang.model.world.Map;
 import com.kevintang.model.world.World;
 import com.kevintang.model.world.terrains.Plain;
 
+/**
+ * Plots the entire map with flat plains, used as a placeholder
+ */
 public class SuperFlatStrategy implements MapGenStrategy {
 
     @Override

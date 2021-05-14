@@ -1,7 +1,11 @@
-package com.kevintang.ui.displayStrategies;
+package com.kevintang.ui.displayStrategies.HUDStrategies;
 
 import com.kevintang.ui.Pixel;
+import com.kevintang.ui.displayStrategies.DisplayStrategy;
 
+/**
+ * Displays a blank HUD with borders, serves as example case for further construction
+ */
 public class EmptyHUDStrategy implements DisplayStrategy {
 
     @Override
